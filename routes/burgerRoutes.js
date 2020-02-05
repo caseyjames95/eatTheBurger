@@ -1,4 +1,4 @@
-const { burgers: { getBurgers } } = require('./controllers')
+const { burgers: { getBurgers, addBurgers, eatBurgers, removeBurgers } } = require('./controllers')
 
 module.exports = app => {
     // Get all pizza
@@ -15,10 +15,14 @@ module.exports = app => {
     })
     // Pur one Burger
     app.put('/burgers/:id', (req, res) => {
-        
+        eatBurgers(parseInt(req.params.id), () => {
+            res.sendStatus(200)
+        })
     })
     // Delete one Burger
     app.delete('/burgers/:id', (req, res) => {
-
+        removeBurgers(parseInt(req.params.id), () => {
+            res.sendStatus(200)
+        })
     })
 }

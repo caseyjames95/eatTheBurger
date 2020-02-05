@@ -11,7 +11,7 @@ module.exports = {
         })
     },
     addBurger(cb) {
-        db.query('INSERT INTO burgers (name, eaten) VALUES (`${name}`,`${eaten}`)', e => {
+        db.query(`INSERT INTO burgers (name, eaten) VALUES ("${name}","${eaten}")`, e => {
             if (e){
                 console.log(e)
             }
@@ -19,10 +19,22 @@ module.exports = {
         })
         
     },
-    eatBurger(cb) {
-        cb()
+    eatBurger(id, cb) {
+        db.query(`UPDATE burgers SET eaten = true WHERE id = ${id}`, e => {
+            if (e) {
+                console.log(e)
+            }
+            cb()
+        })
+        
     },
-    removeBurger(cb) {
-        cb()
+    removeBurger(id, cb) {
+        db.query(`DELETE FROM burgers WHERE id = ${id}`, e => {
+            if (e) {
+                console.log(e)
+            }
+            cb()
+        })
+        
     }
 }
